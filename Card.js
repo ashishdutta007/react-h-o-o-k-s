@@ -9,6 +9,11 @@ export default function CardUseContext() {
   const [club, setClub] = useState("Man City");
   const [country, setCountry] = useState("🇧🇪");
 
+  useEffect(() => {
+    document.title = `${name}-${club}`;
+    console.log(document.title);
+  }, [name, club]);
+
   const [width, setWidtth] = useState(window.innerWidth);
   useEffect(
     // called after every render/re-render
@@ -21,7 +26,8 @@ export default function CardUseContext() {
         console.log("Will Unmount before re-render");
         window.removeEventListener("resize", handleResize);
       };
-    }
+    },
+    [width]
   );
 
   const handleNameChange = e => {
