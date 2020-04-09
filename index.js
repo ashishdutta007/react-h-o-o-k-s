@@ -1,14 +1,14 @@
 import React from "react";
 import { render } from "react-dom";
+import CardOld from "./CardOld";
 import Card from "./Card";
-import CardUseContext from "./CardUseContext";
 import { ThemeContext, LocaleContext, theme, locale } from "./context";
 import "./style.css";
 
 function App() {
   return (
     // <ThemeContext.Provider value={theme.golden}>
-    <CardUseContext />
+    <Card />
     // </ThemeContext.Provider>
   );
 }
