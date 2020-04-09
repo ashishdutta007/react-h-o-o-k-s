@@ -1,13 +1,28 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { ThemeContext, LocaleContext } from "./context";
 import Row from "./Row";
 
 export default function CardUseContext() {
+  const theme = useContext(ThemeContext);
   const [name, setName] = useState("");
   const [position, setPosition] = useState("");
   const [club, setClub] = useState("Man City");
-  const theme = useContext(ThemeContext);
-  const locale = useContext(LocaleContext);
+  const [country, setCountry] = useState("🇧🇪");
+
+  const [width, setWidtth] = useState(window.innerWidth);
+  useEffect(
+    // called after every render/re-render
+    () => {
+      console.log("Invoked after render");
+      const handleResize = () => setWidtth(window.innerWidth);
+      window.addEventListener("resize", handleResize);
+      //called before every re-render;
+      return () => {
+        console.log("Will Unmount before re-render");
+        window.removeEventListener("resize", handleResize);
+      };
+    }
+  );
 
   const handleNameChange = e => {
     setName(e.target.value);
@@ -25,9 +40,10 @@ export default function CardUseContext() {
         <input value={position} onChange={handlePositionChange} />
       </Row>
       <Row label="Club">
-        <input readonly value={club} />
+        <input readOnly value={club} />
       </Row>
-      <Row label="Country">{locale}</Row>
+      <Row label="Country">{country}</Row>
+      <Row label="Width">{width}</Row>
     </section>
   );
 }
