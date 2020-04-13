@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { ThemeContext, LocaleContext } from "./context";
 import Row from "./Row";
+import { useWindowWidth, useTitle } from "./CustomHooks/reusableCustomHooks";
 
 export default function CardUseContext() {
   const theme = useContext(ThemeContext);
@@ -8,27 +9,8 @@ export default function CardUseContext() {
   const [position, setPosition] = useState("");
   const [club, setClub] = useState("Man City");
   const [country, setCountry] = useState("🇧🇪");
-
-  useEffect(() => {
-    document.title = `${name}-${club}`;
-    console.log(document.title);
-  }, [name, club]);
-
-  const [width, setWidth] = useState(window.innerWidth);
-  useEffect(
-    // called after every render/re-render
-    () => {
-      console.log("Invoked after render");
-      const handleResize = () => setWidth(window.innerWidth);
-      window.addEventListener("resize", handleResize);
-      //called before every re-render/unmount;
-      return () => {
-        console.log("Will Unmount before re-render");
-        window.removeEventListener("resize", handleResize);
-      };
-    },
-    []
-  );
+  const width = useWindowWidth(window.innerWidth);
+  useTitle(name, club);
 
   const handleNameChange = e => {
     setName(e.target.value);
