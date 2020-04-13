@@ -28,6 +28,7 @@ export default function CardUseContext() {
   const handleClubChange = e => {
     setClub(e.target.value);
   };
+  console.log("**. Returning react elements from functional component");
   return (
     <section className={theme}>
       <Row label="Name">
