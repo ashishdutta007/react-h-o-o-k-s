@@ -1,34 +1,43 @@
 import React, { useState, useContext, useEffect } from "react";
 import { ThemeContext, LocaleContext } from "./context";
 import Row from "./Row";
-import { useWindowWidth, useTitle } from "./CustomHooks/reusableCustomHooks";
+import {
+  useWindowWidth,
+  useTitle,
+  useFormInput
+} from "./CustomHooks/reusableCustomHooks";
 
 export default function CardUseContext() {
   const theme = useContext(ThemeContext);
-  const [name, setName] = useState("");
-  const [position, setPosition] = useState("");
-  const [club, setClub] = useState("Man City");
+  const [club, setClub] = useState("");
   const [country, setCountry] = useState("🇧🇪");
+  // custom hooks
+  const name = useFormInput("");
+  const position = useFormInput("");
   const width = useWindowWidth(window.innerWidth);
-  useTitle(name, club);
+  useTitle(name.value, club);
 
   const handleNameChange = e => {
-    setName(e.target.value);
+    name.onChange(e.target.value);
   };
 
   const handlePositionChange = e => {
-    setPosition(e.target.value);
+    position.onChange(e.target.value);
+  };
+
+  const handleClubChange = e => {
+    setClub(e.target.value);
   };
   return (
     <section className={theme}>
       <Row label="Name">
-        <input value={name} onChange={handleNameChange} />
+        <input value={name.value} onChange={handleNameChange} />
       </Row>
       <Row label="Position">
-        <input value={position} onChange={handlePositionChange} />
+        <input value={position.value} onChange={handlePositionChange} />
       </Row>
       <Row label="Club">
-        <input readOnly value={club} />
+        <input value={club} onChange={handleClubChange} />
       </Row>
       <Row label="Country">{country}</Row>
       <Row label="Width">{width}</Row>

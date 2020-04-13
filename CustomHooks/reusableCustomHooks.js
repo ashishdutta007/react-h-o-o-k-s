@@ -25,6 +25,13 @@ export const useTitle = (name, club) => {
   }, [name, club]);
 };
 
-export const useFormInput = ()=>{
-  
-}
+export const useFormInput = initialValue => {
+  const [value, setValue] = useState(initialValue);
+  const onChange = value => {
+    setValue(value);
+  };
+  return {
+    value,
+    onChange
+  };
+};
