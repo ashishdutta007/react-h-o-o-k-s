@@ -14,20 +14,20 @@ export default function CardUseContext() {
     console.log(document.title);
   }, [name, club]);
 
-  const [width, setWidtth] = useState(window.innerWidth);
+  const [width, setWidth] = useState(window.innerWidth);
   useEffect(
     // called after every render/re-render
     () => {
       console.log("Invoked after render");
-      const handleResize = () => setWidtth(window.innerWidth);
+      const handleResize = () => setWidth(window.innerWidth);
       window.addEventListener("resize", handleResize);
-      //called before every re-render;
+      //called before every re-render/unmount;
       return () => {
         console.log("Will Unmount before re-render");
         window.removeEventListener("resize", handleResize);
       };
     },
-    [width]
+    []
   );
 
   const handleNameChange = e => {
